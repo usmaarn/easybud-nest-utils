@@ -11,7 +11,6 @@ export class JwtMiddleware implements NestMiddleware {
   constructor(private readonly jwtService: JwtService) {}
 
   async use(req: Request, res: Response, next: (error?: any) => void) {
-    console.log("JWT Middleware...");
     const authToken = req.headers.authorization;
     if (!authToken) {
       throw new UnauthorizedException("auth header not present");
@@ -23,8 +22,6 @@ export class JwtMiddleware implements NestMiddleware {
     }
 
     const claims = await this.jwtService.validateToken(tokenString);
-
-    console.log(claims);
 
     req.user = {
       id: claims.sub,

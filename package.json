@@ -10,8 +10,8 @@
     "README.md"
   ],
   "scripts": {
-    "build": "rm -rf ./dist && tsc && tsc-alias",
-    "build:local": "npm run build && npm pack"
+    "build": "tsc && tsc-alias",
+    "dev": "tsc-watch --onSuccess \"tsc-alias\""
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "axios": "^1.18.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
+    "jose": "^6.2.3",
     "pg": "^8.22.0",
     "redis": "^6.1.0",
     "reflect-metadata": "^0.2.2"
@@ -39,6 +40,7 @@
     "@types/node": "^26.1.1",
     "@types/pg": "^8.20.0",
     "tsc-alias": "^1.9.1",
+    "tsc-watch": "^7.2.1",
     "tsup": "^8.5.1",
     "typescript": "^7.0.2"
   },

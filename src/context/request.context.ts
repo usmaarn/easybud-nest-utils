@@ -18,7 +18,6 @@ export class RequestContext {
 
   get user(): Context["user"] {
     const store = this.context.getStore();
-    console.log(store);
     if (!store || !store.user) {
       throw new UnauthorizedException("unauthenticated");
     }

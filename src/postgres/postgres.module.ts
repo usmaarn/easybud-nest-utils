@@ -11,13 +11,8 @@ type DatabaseOptions = {
   database: string;
 };
 
-interface ModuleOptions {
-  isGlobal: boolean;
-  database: DatabaseOptions;
-}
-
-type AsyncModuleOptions = {
-  isGlobal?: boolean;
+type ModuleOptions = {
+  global?: boolean;
   imports?: any[];
   inject?: any[];
   useFactory: (...args: any[]) => Promise<DatabaseOptions> | DatabaseOptions;
@@ -25,26 +20,9 @@ type AsyncModuleOptions = {
 
 @Module({})
 export class PGModule {
-  static forRoot(options: ModuleOptions): DynamicModule {
+  static register(options: ModuleOptions): DynamicModule {
     return {
-      module: PGModule,
-      providers: [
-        {
-          provide: PG_POOL,
-          useFactory: () =>
-            new Pool({
-              ...options.database,
-            }),
-        },
-        TransactionContext,
-      ],
-      exports: [PG_POOL, TransactionContext],
-    };
-  }
-
-  static forRootAsync(options: AsyncModuleOptions): DynamicModule {
-    return {
-      global: options.isGlobal,
+      global: options.global,
       module: PGModule,
       imports: options.imports ?? [],
       providers: [

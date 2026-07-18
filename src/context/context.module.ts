@@ -7,12 +7,12 @@ import { RequestContext } from "./request.context.js";
   exports: [RequestContext],
 })
 export class ContextModule {
-  static forRoot(opt: { isGlobal: boolean }): DynamicModule {
+  static register(opt: { global: boolean }): DynamicModule {
     return {
       module: ContextModule,
       providers: [RequestContext],
       exports: [RequestContext],
-      global: opt.isGlobal,
+      global: opt.global,
     };
   }
 }

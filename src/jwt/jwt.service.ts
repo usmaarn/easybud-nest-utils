@@ -1,4 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { JWT_SECRET } from "@/tokens.js";
+import { Inject, Injectable } from "@nestjs/common";
+import * as jose from "jose";
 
 type JwtClaims = {
   sub: string;
@@ -8,10 +10,17 @@ type JwtClaims = {
 
 @Injectable()
 export class JwtService {
+  constructor(
+    @Inject(JWT_SECRET)
+    private readonly secret: string,
+  ) {}
+
   async validateToken(tokenString: string): Promise<JwtClaims> {
-    console.log('validating tokens...');
+    const publicKey = await jose.importSPKI(this.secret, "RS256");
+    const claims = jose.jwtVerify(tokenString, publicKey, {});
+    console.log(claims);
     return {
-      sub: '',
+      sub: "",
       permissions: [],
       roles: [],
     };
