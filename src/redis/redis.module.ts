@@ -29,12 +29,20 @@ export class RedisModule {
           inject: opts.inject ?? [],
           async useFactory(...args: any[]) {
             const options = await opts.useFactory(...args);
-            return createClient({
+            const client = createClient({
               url: `redis://${options.host}:${options.port}`,
               username: options.username,
               password: options.password,
               database: options.database,
             });
+
+            client.on("error", (error) => {
+              console.error("Redis client error:", error);
+            });
+
+            await client.connect();
+
+            return client;
           },
         },
         RedisService,

@@ -1,16 +1,9 @@
 import { CacheService } from "@/interfaces.js";
-import {
-  Inject,
-  Injectable,
-  OnModuleDestroy,
-  OnModuleInit,
-} from "@nestjs/common";
+import { Inject, Injectable, OnModuleDestroy } from "@nestjs/common";
 import { createClient } from "redis";
 
 @Injectable()
-export class RedisService
-  implements OnModuleInit, OnModuleDestroy, CacheService
-{
+export class RedisService implements OnModuleDestroy, CacheService {
   private prefix = "easybud:";
 
   constructor(
@@ -18,19 +11,15 @@ export class RedisService
     private readonly client: ReturnType<typeof createClient>,
   ) {}
 
-  async onModuleInit() {
-    this.client.on("error", (error) => {
-      console.error("Redis client error: ", error);
-    });
-
-    await this.client.connect();
-  }
-
-  onModuleDestroy() {
-    this.client.destroy();
+  async onModuleDestroy() {
+    if (this.client.isOpen) {
+      await this.client.quit();
+    }
   }
 
   async set<T>(key: string, value: T): Promise<void> {
+    key = this.getKey(key);
+
     if (value && typeof value === "object" && !Array.isArray(value)) {
       await this.client.HSET(key, value as Record<string, string>);
     } else {
@@ -38,7 +27,13 @@ export class RedisService
     }
   }
 
+  private getKey(key: string) {
+    return this.prefix + key;
+  }
+
   async get<T>(key: string): Promise<T | null> {
+    key = this.getKey(key);
+
     const type = await this.client.TYPE(key);
 
     switch (type) {
@@ -56,6 +51,6 @@ export class RedisService
   }
 
   async delete(key: string): Promise<void> {
-    await this.client.DEL(this.prefix + key);
+    await this.client.DEL(this.getKey(key));
   }
 }

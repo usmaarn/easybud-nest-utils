@@ -1,10 +1,9 @@
 import { GatewayException } from "@/exceptions/gateway.exception.js";
 import { CacheService } from "@/interfaces.js";
-import { CACHE_SERVICE, GATEWAY_OPTIONS } from "@/tokens.js";
+import { AUTH_SERVICE_URL, CACHE_SERVICE } from "@/tokens.js";
 import { Inject, Injectable } from "@nestjs/common";
-import { Routes } from "../routes.js";
-import { User } from "../user-response.dto.js";
-import { GatewayOptions } from "../index.js";
+import { User } from "./dto/user-response.dto.js";
+import { Routes } from "@/common/routes.js";
 
 export interface GetUserCommand {
   id: string;
@@ -14,8 +13,8 @@ export interface GetUserCommand {
 @Injectable()
 export class GetUserService {
   constructor(
-    @Inject(GATEWAY_OPTIONS)
-    private readonly opt: GatewayOptions,
+    @Inject(AUTH_SERVICE_URL)
+    private readonly url: string,
 
     @Inject(CACHE_SERVICE)
     private readonly cache: CacheService,
@@ -30,7 +29,7 @@ export class GetUserService {
       return user;
     }
 
-    const res = await fetch(this.opt.authUrl + Routes.Auth.GetProfile, {
+    const res = await fetch(this.url + Routes.GetProfile, {
       headers: {
         Authorization: "Bearer " + cmd.token,
       },

@@ -1,9 +1,11 @@
-import { GATEWAY_URL } from "@/tokens.js";
+import { AUTH_SERVICE_URL } from "@/tokens.js";
 import { DynamicModule, Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
+import { GetUserService } from "./get-user.service.js";
+import { GetJwtSecretService } from "./get-jwt-key.service.js";
 
 @Module({})
-export class GatewayModule {
+export class AuthModule {
   static register(opts: {
     global?: boolean;
     imports?: any[];
@@ -12,18 +14,22 @@ export class GatewayModule {
   }): DynamicModule {
     return {
       global: opts.global,
-      module: GatewayModule,
+      module: AuthModule,
       imports: opts.imports ?? [ConfigModule],
       providers: [
         {
-          provide: GATEWAY_URL,
+          provide: AUTH_SERVICE_URL,
           inject: opts.inject ?? [ConfigService],
           useFactory: async (config: ConfigService, ...args: any[]) => {
-            return opts.useFactory?.(...args) ?? config.getOrThrow(GATEWAY_URL);
+            return (
+              opts.useFactory?.(...args) ?? config.getOrThrow(AUTH_SERVICE_URL)
+            );
           },
         },
+        GetJwtSecretService,
+        GetUserService,
       ],
-      exports: [GATEWAY_URL],
+      exports: [AUTH_SERVICE_URL, GetJwtSecretService, GetUserService],
     };
   }
 }

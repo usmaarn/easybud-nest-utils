@@ -5,3 +5,4 @@ export * from "./middlewares/index.js";
 export * from "./interfaces.js";
 export * from "./tokens.js";
 export * from "./common/index.js";
+export * from "./common/routes.js";

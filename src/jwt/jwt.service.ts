@@ -16,8 +16,9 @@ export class JwtService {
   ) {}
 
   async validateToken(tokenString: string): Promise<JwtClaims> {
-    const publicKey = await jose.importSPKI(this.secret, "RS256");
-    const claims = jose.jwtVerify(tokenString, publicKey, {});
+    const key = await jose.importSPKI(this.secret, "RS256");
+    // const key = new TextEncoder().encode(this.secret);
+    const claims = await jose.jwtVerify(tokenString, key, {});
     console.log(claims);
     return {
       sub: "",
