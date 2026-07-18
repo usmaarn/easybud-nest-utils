@@ -1,3 +1,3 @@
-export * from "./jwt.middleware";
-export * from "./jwt.module";
-export * from "./jwt.service";
+export * from "./jwt.middleware.js";
+export * from "./jwt.module.js";
+export * from "./jwt.service.js";

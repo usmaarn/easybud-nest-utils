@@ -1,4 +1,4 @@
-import { ErrorCode } from "@/lib";
+import { ErrorCode } from "@/lib/index.js";
 import { InternalServerErrorException } from "@nestjs/common";
 
 export class GatewayException extends InternalServerErrorException {

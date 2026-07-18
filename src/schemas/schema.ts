@@ -1,6 +1,6 @@
 import { Type } from "class-transformer";
 import { IsInt, IsOptional, IsString, Max, Min } from "class-validator";
-import { PaginationDto } from "./pagination.schema";
+import { PaginationDto } from "./pagination.schema.js";
 
 export class CreateReviewDto {
   @IsInt()

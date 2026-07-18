@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { Pool, PoolClient } from "pg";
-import { TransactionContext } from "./transaction";
+import { TransactionContext } from "./transaction.js";
 
 export const PG_POOL = Symbol("PG_POOL");
 

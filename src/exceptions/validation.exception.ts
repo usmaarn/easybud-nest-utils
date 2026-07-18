@@ -1,4 +1,4 @@
-import { ErrorCode } from "@/lib";
+import { ErrorCode } from "@/lib/index.js";
 import { BadRequestException, HttpExceptionOptions } from "@nestjs/common";
 
 export class ValidationException<T extends object> extends BadRequestException {

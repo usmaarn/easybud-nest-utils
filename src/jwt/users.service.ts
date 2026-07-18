@@ -1,5 +1,5 @@
-import { Routes, User } from "@/gateway";
-import { RestClient } from "@/lib";
+import { Routes, User } from "@/gateway/index.js";
+import { RestClient } from "@/lib/index.js";
 
 export class AuthService {
   constructor(private readonly client: RestClient) {}

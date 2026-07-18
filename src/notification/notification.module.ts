@@ -1,5 +1,5 @@
 import { Global, Module } from "@nestjs/common";
-import { NotificationService } from "./notification.service";
+import { NotificationService } from "./notification.service.js";
 // import { QueueService } from './queue-service';
 // import { NotificationListenerService } from './notification-listener.service';
 // import { ClientsModule } from '@/clients/clients.module';

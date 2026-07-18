@@ -1,6 +1,6 @@
-import { Module } from '@nestjs/common';
-import { MapController } from './map.controller';
-import { MapService } from './map.service';
+import { Module } from "@nestjs/common";
+import { MapController } from "./map.controller.js";
+import { MapService } from "./map.service.js";
 // import { ClientsModule } from '@/clients/clients.module';
 
 @Module({

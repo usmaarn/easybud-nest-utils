@@ -1,5 +1,5 @@
 import { DynamicModule, Module } from "@nestjs/common";
-import { RequestContext } from "./request.context";
+import { RequestContext } from "./request.context.js";
 
 @Module({
   imports: [],

@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
-import { PaymentService } from "./payment.service";
-import { AuthService } from "../jwt/users.service";
+import { PaymentService } from "./payment.service.js";
+import { AuthService } from "../jwt/users.service.js";
 
 @Module({
   imports: [],

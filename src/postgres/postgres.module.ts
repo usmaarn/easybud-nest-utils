@@ -1,7 +1,7 @@
 import { DynamicModule, Module } from "@nestjs/common";
 import { Pool } from "pg";
-import { PG_POOL } from "./repository";
-import { TransactionContext } from "./transaction";
+import { PG_POOL } from "./repository.js";
+import { TransactionContext } from "./transaction.js";
 
 interface ModuleOptions {
   isGlobal: boolean;

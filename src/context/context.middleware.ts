@@ -1,5 +1,5 @@
 import { Injectable, NestMiddleware } from "@nestjs/common";
-import { RequestContext } from "./request.context";
+import { RequestContext } from "./request.context.js";
 import { Request, Response } from "express";
 
 @Injectable()

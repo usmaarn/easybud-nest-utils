@@ -1,4 +1,4 @@
-import { TransactionManager } from "@/interfaces";
+import { TransactionManager } from "@/interfaces.js";
 import { Injectable } from "@nestjs/common";
 import { AsyncLocalStorage } from "async_hooks";
 import { Pool, PoolClient } from "pg";
