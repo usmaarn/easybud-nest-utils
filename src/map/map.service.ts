@@ -1,30 +1,29 @@
-import { ConfigService } from '@/old/config/config.service';
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
 
 @Injectable()
 export class MapService {
-  constructor(private readonly config: ConfigService) {}
+  // constructor(private readonly config: ConfigService) {}
 
   async searchLocation(query: string) {
     const response = await fetch(
-      'https://places.googleapis.com/v1/places:searchText',
+      "https://places.googleapis.com/v1/places:searchText",
       {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify({
           textQuery: query,
         }),
         headers: {
-          'Content-Type': 'application/json',
-          'X-Goog-Api-Key': this.config.getOrThrow('google.map_api_key'),
-          'X-Goog-FieldMask':
-            'places.id,places.displayName,places.formattedAddress',
+          "Content-Type": "application/json",
+          // 'X-Goog-Api-Key': this.config.getOrThrow('google.map_api_key'),
+          "X-Goog-FieldMask":
+            "places.id,places.displayName,places.formattedAddress",
         },
       },
     );
 
-    const data = await response.json();
+    const data = (await response.json()) as any;
     return (
-      data.places?.map((el) => ({
+      data.places?.map((el: any) => ({
         placeId: el.id,
         description: el.displayName.text,
       })) ?? []

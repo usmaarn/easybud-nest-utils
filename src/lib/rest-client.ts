@@ -1,5 +1,5 @@
-import { Injectable, Logger } from '@nestjs/common';
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
+import { Injectable, Logger } from "@nestjs/common";
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 
 export type RestClientOptions = {
   baseUrl: string;
@@ -24,7 +24,7 @@ export class RestClient {
         ...(options?.accessToken && {
           authorization: `Bearer ${options?.accessToken}`,
         }),
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
   }
@@ -40,21 +40,21 @@ export class RestClient {
         return {
           data: res.data,
           success: true,
-          message: 'success',
+          message: "success",
         };
       })
       .catch((err: any) => {
         if (err instanceof AxiosError) {
           return {
             success: false,
-            message: err.response?.data?.message ?? 'An error ocurred',
+            message: err.response?.data?.message ?? "An error ocurred",
             data: err?.response?.data ?? {},
           };
         } else {
           this.logger.log(err);
           return {
             success: false,
-            message: 'An error ocurred',
+            message: "An error ocurred",
             data: err?.response?.data ?? {},
           };
         }
@@ -71,21 +71,21 @@ export class RestClient {
         return {
           data: res.data,
           success: true,
-          message: 'success',
+          message: "success",
         };
       })
       .catch((err: any) => {
         if (err instanceof AxiosError) {
           return {
             success: false,
-            message: err.response?.data?.message ?? 'An error ocurred',
+            message: err.response?.data?.message ?? "An error ocurred",
             data: err?.response?.data ?? {},
           };
         } else {
           this.logger.log(err);
           return {
             success: false,
-            message: 'An error ocurred',
+            message: "An error ocurred",
             data: err?.response?.data ?? {},
           };
         }

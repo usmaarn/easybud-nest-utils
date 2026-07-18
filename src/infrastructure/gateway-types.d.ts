@@ -1,9 +1,13 @@
-export type SubscriptionStatus = 'active' | 'inactive' | 'expired';
+export type SubscriptionStatus = "active" | "inactive" | "expired";
 export type PaymentStatus =
-  'success' | 'failed' | 'pending' | 'reversed' | 'cancelled';
+  | "success"
+  | "failed"
+  | "pending"
+  | "reversed"
+  | "cancelled";
 
 export interface ApiResponse<T> {
-  status: 'success' | 'error';
+  status: "success" | "error";
   message: string;
   data: T;
 }
@@ -27,22 +31,22 @@ export interface CreateSubscriptionPlanRequest {
   description: string;
   code: string;
   price: number;
-  billing_cycle: BillingCircle;
+  billing_cycle: string; //BillingCircle;
   duration_days: number;
 }
 
 export type CreateSubscriptionPlanResponse = ApiResponse<SubscriptionPlan>;
 
 export interface InitiateSubscriptionRequest {
-  service: 'travel_buddy';
+  service: "travel_buddy";
   payload: {
-    transaction_type: 'subscription';
+    transaction_type: "subscription";
     plan_code: string;
     auto_renew: boolean;
     description?: string;
     context: string;
     context_id: string;
-    subscription_type: 'promotion' | 'subscription';
+    subscription_type: "promotion" | "subscription";
     is_trial: boolean;
   };
 }
@@ -78,7 +82,7 @@ export interface SubscriptionResponse {
   auto_renew: boolean;
   context: string;
   context_id: string;
-  subscription_type: 'subscription' | 'promotion';
+  subscription_type: "subscription" | "promotion";
   updated_at: string;
   created_at: string;
   id: number;
@@ -88,7 +92,7 @@ export interface SubscriptionResponse {
 export interface InitiatePaymentDto {
   amount: number;
   description: string;
-  transactionType: 'trip_payment';
+  transactionType: "trip_payment";
   contextId: string;
   meta?: Record<string, unknown>;
 }
@@ -115,7 +119,7 @@ export interface ConfirmPaymentResponse {
   };
   expires_at: string;
   pin_attempts: number;
-  status: 'pending' | 'debited' | 'failed' | 'expired';
+  status: "pending" | "debited" | "failed" | "expired";
   created_at: string;
   updated_at: string;
 }
